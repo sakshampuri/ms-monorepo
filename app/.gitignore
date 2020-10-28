@@ -1,0 +1,11 @@
+#Git ignore file for expo project - Mood Swings
+
+
+#Expo
+.expo/
+
+#Typescript
+*.tsbuildinfo
+
+#dependency directory
+node_modules/
