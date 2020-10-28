@@ -5,11 +5,12 @@ import {
     View,
     Animated,
     ScrollView,
+    Image,
 } from "react-native";
 import { Slide } from "./Slide";
 import { SLIDE_HEIGHT } from "./Slide";
 import Subslide from "./Subslide";
-import { PageIndicator } from "../../Components/index";
+import { PageIndicator } from "../../Components";
 export const BORDER_RADIUS = 90;
 const styles = StyleSheet.create({
     container: {
@@ -20,6 +21,15 @@ const styles = StyleSheet.create({
         height: SLIDE_HEIGHT,
         borderBottomRightRadius: 90,
     },
+    underlay: {
+        ...StyleSheet.absoluteFillObject,
+        flex: 1,
+        justifyContent: "flex-end",
+    },
+    picture: {
+        borderBottomRightRadius: 90,
+    },
+
     footer: {
         flex: 1,
     },
@@ -96,6 +106,14 @@ const Onboarding: React.FC = () => {
     return (
         <View style={styles.container}>
             <Animated.View style={[styles.slider, { backgroundColor }]}>
+                {/*{slides.map(({ image }, index) => {
+                    return (
+                        <View style={styles.underlay} key={index}>
+                            <Image source={image} style={styles.picture} />
+                        </View>
+                    );
+                    })} */}
+
                 <Animated.ScrollView
                     snapToInterval={width}
                     ref={scroll}

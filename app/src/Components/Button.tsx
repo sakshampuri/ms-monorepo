@@ -1,46 +1,56 @@
+import {
+    createRestyleComponent,
+    createVariant,
+    VariantProps,
+} from "@shopify/restyle";
 import * as React from "react";
-import { StyleSheet, Text } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
+import { Text } from "../Components";
+import { Theme } from "./";
 
-const styles = StyleSheet.create({
-    container: {
-        borderRadius: 25,
+type ButtonProps = VariantProps<Theme, "buttonVariants"> & {
+    label: string;
+    onPress: () => void;
+};
+
+const ButtonVariant = createVariant<Theme>({
+    themeKey: "buttonVariants",
+    defaults: {
         height: 50,
         width: 255,
         alignSelf: "center",
         alignItems: "center",
         justifyContent: "center",
-    },
-    label: {
-        textAlign: "center",
-        textAlignVertical: "center",
-        fontSize: 18,
-        color: "white",
+        borderRadius: 25,
     },
 });
 
-interface ButtonProps {
-    label: string;
-    variant: "primary" | "default";
-    onPress: () => void;
-}
+const ButtonContainer = createRestyleComponent<
+    VariantProps<Theme, "buttonVariants">,
+    Theme
+>([ButtonVariant]);
 
-const Button: React.FC<ButtonProps> = ({ label, variant, onPress }) => {
-    const backgroundColor =
-        variant === "primary" ? "#2CB9B0" : "rgba(12,13,52, 0.05)";
-    const color = variant === "primary" ? "white" : "#0C0D34";
+const Button: React.FC<ButtonProps> = ({
+    label,
+    variant,
+    onPress,
+}: ButtonProps) => {
+    const color = variant === "primary" ? "white" : "primaryText";
     return (
-        <RectButton
-            {...{ onPress }}
-            style={[styles.container, { ...{ backgroundColor } }]}
-        >
-            <Text style={[styles.label, { ...{ color } }]}>{label}</Text>
+        <RectButton {...{ onPress }}>
+            <ButtonContainer {...{ variant }}>
+                <Text variant='label' {...{ color }}>
+                    {label}
+                </Text>
+            </ButtonContainer>
         </RectButton>
     );
 };
 
 Button.defaultProps = {
     variant: "default",
+    onPress: () => null,
+    label: "Press Me",
 };
 
 export default Button;

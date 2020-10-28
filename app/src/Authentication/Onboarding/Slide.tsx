@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Image, StyleSheet, View } from "react-native";
+import { Text } from "../../Components";
 
 const { width, height } = Dimensions.get("window");
 
@@ -13,13 +14,6 @@ const styles = StyleSheet.create({
     },
     titleContainer: {
         flex: 1,
-    },
-    title: {
-        fontSize: 80,
-        fontWeight: "bold",
-        color: "white",
-        textAlign: "center",
-        textAlignVertical: "center",
     },
     underlay: {
         ...StyleSheet.absoluteFillObject,
@@ -61,7 +55,7 @@ export const Slide: React.FC<SlideProps> = ({ label, right, image }) => {
                     marginVertical: 50,
                 }}
             >
-                <Text style={styles.title}>{label}</Text>
+                <Text variant='hero'>{label}</Text>
             </View>
         </View>
     );
