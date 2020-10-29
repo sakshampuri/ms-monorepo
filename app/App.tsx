@@ -4,11 +4,13 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Onboarding from "./src/Authentication/Onboarding";
 import { AppLoading } from "expo";
 import { useFonts } from "expo-font";
-import { SafeAreaView, Text, View, Platform } from "react-native";
+import { Text, View } from "react-native";
 import { ThemeProvider } from "@shopify/restyle";
-import { theme } from "./src/Components";
+import { theme } from "./src/Restyle";
+import { Routes } from "./src/Components/Routes";
+import Welcome from "./src/Authentication/Welcome";
 
-const AuthenticationStack = createStackNavigator();
+const AuthenticationStack = createStackNavigator<Routes>();
 
 const AuthenticationNavigator = () => {
     return (
@@ -17,6 +19,7 @@ const AuthenticationNavigator = () => {
                 name='Onboarding'
                 component={Onboarding}
             />
+            <AuthenticationStack.Screen name='Welcome' component={Welcome} />
         </AuthenticationStack.Navigator>
     );
 };
@@ -46,15 +49,9 @@ export default () => {
 
     return (
         <ThemeProvider theme={theme}>
-            {Platform.OS === "ios" ? (
-                <NavigationContainer>
-                    <AuthenticationNavigator />
-                </NavigationContainer>
-            ) : (
-                <NavigationContainer>
-                    <AuthenticationNavigator />
-                </NavigationContainer>
-            )}
+            <NavigationContainer>
+                <AuthenticationNavigator />
+            </NavigationContainer>
         </ThemeProvider>
     );
 };
