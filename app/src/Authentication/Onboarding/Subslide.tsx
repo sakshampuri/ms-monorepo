@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Animated, StyleSheet } from "react-native";
-import { Button, Text } from "../../Components/index";
+import { Text } from "../../Restyle";
+import { Button } from "../../Components";
 
 const styles = StyleSheet.create({
     container: {
