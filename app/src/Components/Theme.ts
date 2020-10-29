@@ -1,4 +1,11 @@
-import { createTheme } from "@shopify/restyle";
+import {
+    createBox,
+    createRestyleComponent,
+    createText,
+    createTheme,
+    createVariant,
+    VariantProps,
+} from "@shopify/restyle";
 
 const palette = {
     black: "#0B0B0B",
@@ -73,6 +80,34 @@ const theme = createTheme({
         },
     },
 });
+
+export const Box = createBox<Theme>();
+export const Text = createText<Theme>();
+export type ButtonProps = VariantProps<Theme, "buttonVariants"> & {
+    label: string;
+    onPress: () => void;
+    style?: {
+        height?: number;
+        width?: number;
+        borderRadius?: number;
+    };
+};
+const ButtonVariant = createVariant<Theme>({
+    themeKey: "buttonVariants",
+    defaults: {
+        height: 50,
+        width: 255,
+        alignSelf: "center",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 25,
+    },
+});
+
+export const ButtonContainer = createRestyleComponent<
+    VariantProps<Theme, "buttonVariants">,
+    Theme
+>([ButtonVariant]);
 
 export type Theme = typeof theme;
 export default theme;
