@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Dimensions, Image, StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import { Text } from "../../Components";
 
 const { width, height } = Dimensions.get("window");
@@ -15,28 +15,14 @@ const styles = StyleSheet.create({
     titleContainer: {
         flex: 1,
     },
-    underlay: {
-        ...StyleSheet.absoluteFillObject,
-        flex: 1,
-        justifyContent: "flex-end",
-    },
-    picture: {
-        ...StyleSheet.absoluteFillObject,
-        alignSelf: "center",
-        width: undefined,
-        height: undefined,
-        borderBottomRightRadius: 90,
-        borderBottomLeftRadius: 90,
-    },
 });
 
 interface SlideProps {
     label: string;
     right?: boolean;
-    image: number;
 }
 
-export const Slide: React.FC<SlideProps> = ({ label, right, image }) => {
+export const Slide: React.FC<SlideProps> = ({ label, right }) => {
     const transform = [
         {
             rotate: right ? "90deg" : "-90deg",
@@ -44,9 +30,6 @@ export const Slide: React.FC<SlideProps> = ({ label, right, image }) => {
     ];
     return (
         <View style={styles.container}>
-            {/*<View style={styles.underlay}>
-                <Image source={image} style={styles.picture} />
-                </View>*/}
             <View
                 style={{
                     ...styles.titleContainer,

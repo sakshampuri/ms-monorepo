@@ -152,12 +152,11 @@ const Onboarding: React.FC = () => {
                     )}
                     scrollEventThrottle={1}
                 >
-                    {slides.map(({ title: label, image }, index) => (
+                    {slides.map(({ title: label }, index) => (
                         <Slide
                             label={label}
                             right={!!(index % 2)}
                             key={index}
-                            image={image}
                         />
                     ))}
                 </Animated.ScrollView>
