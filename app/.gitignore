@@ -10,3 +10,4 @@
 #dependency directory
 node_modules/
 *.DS_Store
+*.jks
