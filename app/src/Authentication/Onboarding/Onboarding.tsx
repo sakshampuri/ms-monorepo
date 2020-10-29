@@ -6,12 +6,15 @@ import {
     Animated,
     ScrollView,
     Image,
+    Dimensions,
 } from "react-native";
 import { Slide } from "./Slide";
 import { SLIDE_HEIGHT } from "./Slide";
 import Subslide from "./Subslide";
 import { PageIndicator } from "../../Components";
+
 export const BORDER_RADIUS = 90;
+const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -23,11 +26,13 @@ const styles = StyleSheet.create({
     },
     underlay: {
         ...StyleSheet.absoluteFillObject,
-        flex: 1,
         justifyContent: "flex-end",
+        alignItems: "center",
     },
     picture: {
         borderBottomRightRadius: 90,
+        width: width,
+        height: (width - BORDER_RADIUS) * 1.7,
     },
 
     footer: {
@@ -65,7 +70,7 @@ export const slides = [
         subtitle: "Your Vibe, Our Music",
         description:
             "Our Machine Learning Model tries to match your vibe to boost your current experience",
-        color: "#303030",
+        color: "#EDBC41",
         image: require("../../../assets/images/2.jpg"),
     },
     {
@@ -73,7 +78,7 @@ export const slides = [
         subtitle: "Get pumped up",
         description:
             "We aim to energize your lazy daytime durations and convert you into a productivity powerhousr",
-        color: "#F1F1F3",
+        color: "#233132",
         image: require("../../../assets/images/3.jpg"),
     },
     {
@@ -81,7 +86,7 @@ export const slides = [
         subtitle: "Feeling Left Out?",
         description:
             "Create your own playlist by selecting curated songs to train the model to your specific needs.",
-        color: "#CB637E",
+        color: "#CD6582",
         image: require("../../../assets/images/4.jpg"),
     },
 ];
@@ -106,13 +111,24 @@ const Onboarding: React.FC = () => {
     return (
         <View style={styles.container}>
             <Animated.View style={[styles.slider, { backgroundColor }]}>
-                {/*{slides.map(({ image }, index) => {
+                {slides.map(({ image }, index) => {
+                    const opacity = x.interpolate({
+                        inputRange: [
+                            (index - 0.5) * width,
+                            index * width,
+                            (index + 0.5) * width,
+                        ],
+                        outputRange: [0, 1, 0],
+                    });
                     return (
-                        <View style={styles.underlay} key={index}>
+                        <Animated.View
+                            style={[styles.underlay, { opacity }]}
+                            key={index}
+                        >
                             <Image source={image} style={styles.picture} />
-                        </View>
+                        </Animated.View>
                     );
-                    })} */}
+                })}
 
                 <Animated.ScrollView
                     snapToInterval={width}

@@ -44,9 +44,9 @@ export const Slide: React.FC<SlideProps> = ({ label, right, image }) => {
     ];
     return (
         <View style={styles.container}>
-            <View style={styles.underlay}>
+            {/*<View style={styles.underlay}>
                 <Image source={image} style={styles.picture} />
-            </View>
+                </View>*/}
             <View
                 style={{
                     ...styles.titleContainer,
