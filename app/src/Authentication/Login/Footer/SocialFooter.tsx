@@ -48,26 +48,24 @@ const Footer: React.FC<Props> = ({}) => {
         console.log("inputconfig: ", firebaseConfig);
     }
 
-    console.log(firebaseConfig);
-
     const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
         clientId: Constants.manifest.extra.clientId,
     });
 
-    // React.useEffect(() => {
-    //     if (response?.type === "success") {
-    //         console.log(response);
-    //         const { id_token } = response.params;
+    React.useEffect(() => {
+        if (response?.type === "success") {
+            console.log(response);
+            const { id_token } = response.params;
 
-    //         const credential = firebase.auth.GoogleAuthProvider.credential(
-    //             id_token
-    //         );
-    //         console.log(credential);
-    //         firebase.auth().signInWithCredential(credential);
-    //         const user = firebase.auth().currentUser;
-    //         console.log(user);
-    //     }
-    // }, [response]);
+            const credential = firebase.auth.GoogleAuthProvider.credential(
+                id_token
+            );
+            console.log(credential);
+            firebase.auth().signInWithCredential(credential);
+            const user = firebase.auth().currentUser;
+            console.log("user: ", user);
+        }
+    }, [response]);
 
     return (
         <Box flexDirection='row' alignItems='center' justifyContent='center'>

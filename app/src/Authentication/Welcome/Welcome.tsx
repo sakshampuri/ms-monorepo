@@ -46,7 +46,7 @@ const Welcome: React.FC<Props> = ({
             console.log(credential);
             firebase.auth().signInWithCredential(credential);
             const user = firebase.auth().currentUser;
-            console.log(user);
+            console.log("user: ", user);
         }
     }, [response]);
 
