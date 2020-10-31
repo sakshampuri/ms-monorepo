@@ -12,6 +12,8 @@ import { Slide } from "./Slide";
 import { SLIDE_HEIGHT } from "./Slide";
 import Subslide from "./Subslide";
 import { PageIndicator } from "../../Components";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { Routes, StackNavigationProps } from "../../Components/Routes";
 
 export const BORDER_RADIUS = 90;
 const { width, height } = Dimensions.get("window");
@@ -91,7 +93,9 @@ export const slides = [
     },
 ];
 
-const Onboarding: React.FC = () => {
+const Onboarding = ({
+    navigation,
+}: StackNavigationProps<Routes, "Onboarding">) => {
     const width = useWindowDimensions().width;
     const scroll = React.useRef<ScrollView>(null);
 
@@ -103,9 +107,12 @@ const Onboarding: React.FC = () => {
     });
 
     const buttonOnPress = (index: number) => () => {
-        if (scroll.current) {
-            scroll.current.scrollTo({ x: width * (index + 1), animated: true });
-        }
+        if (index === slides.length - 1) navigation.navigate("Welcome");
+        else
+            scroll.current?.scrollTo({
+                x: width * (index + 1),
+                animated: true,
+            });
     };
 
     return (

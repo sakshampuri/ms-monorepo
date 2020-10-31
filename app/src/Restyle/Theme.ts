@@ -13,8 +13,11 @@ const palette = {
 
     fadedgray: "rgba(12,13,52, 0.05)",
     green: "#2CB9B0",
+    greenFaded: "rgba(44, 185, 176, 0.4)",
     darkblue: "#0C0D34",
     gray: "rgba(12,13,52,0.7)",
+    onyx: "#0F0E0C",
+    amarnath: "#D82F51",
 };
 
 const theme = createTheme({
@@ -22,14 +25,21 @@ const theme = createTheme({
         //Background
         mainBackground: palette.white,
         white: palette.white,
+        darkBrown: palette.onyx,
+        danger: palette.amarnath,
 
         //Text
         secondaryText: palette.gray,
         primaryText: palette.darkblue,
+        red: "#FF0000",
+        green: palette.green,
+        black: "#000000",
 
         //Button
         secondaryBackground: palette.fadedgray,
         primaryBackground: palette.green,
+        defaultBorder: "rgba(11,14,50, 0.2)",
+        selectedBorder: palette.greenFaded,
     },
     spacing: {
         s: 8,
@@ -37,21 +47,29 @@ const theme = createTheme({
         l: 24,
         xl: 40,
     },
+    borderRadii: {
+        s: 5,
+        m: 25,
+        l: 75,
+        xl: 90,
+    },
     breakpoints: {},
     textVariants: {
         hero: {
             fontSize: 80,
-            fontFanily: "SF-Pro-Bold",
+            fontFamily: "SF-Pro-Bold",
             color: "mainBackground",
             textAlign: "center",
             textAlignVertical: "center",
         },
         title: {
             fontSize: 24,
-            fontFamily: "SF-Pro-Semibold",
+            fontFamily: "SF-Pro-Bold",
             color: "primaryText",
             marginBottom: "m",
             lineHeight: 30,
+            alignSelf: "center",
+            alignItems: "center",
         },
         subtitle: {
             fontSize: 16,
@@ -86,11 +104,7 @@ export const Text = createText<Theme>();
 export type ButtonProps = VariantProps<Theme, "buttonVariants"> & {
     label: string;
     onPress: () => void;
-    style?: {
-        height?: number;
-        width?: number;
-        borderRadius?: number;
-    };
+    style?: {};
 };
 const ButtonVariant = createVariant<Theme>({
     themeKey: "buttonVariants",
@@ -100,7 +114,7 @@ const ButtonVariant = createVariant<Theme>({
         alignSelf: "center",
         alignItems: "center",
         justifyContent: "center",
-        borderRadius: 25,
+        borderRadius: "m",
     },
 });
 

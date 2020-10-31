@@ -1,7 +1,7 @@
 import * as React from "react";
 import { RectButton } from "react-native-gesture-handler";
-import { Text } from "../Components";
-import { ButtonContainer, ButtonProps } from "./Theme";
+import { Text } from "../Restyle";
+import { ButtonContainer, ButtonProps } from "../Restyle";
 
 const Button: React.FC<ButtonProps> = ({
     label,

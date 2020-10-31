@@ -10,3 +10,6 @@
 #dependency directory
 node_modules/
 *.DS_Store
+*.jks
+.env
+app.config.ts

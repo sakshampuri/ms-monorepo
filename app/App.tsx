@@ -1,27 +1,15 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import Onboarding from "./src/Authentication/Onboarding";
 import { AppLoading } from "expo";
 import { useFonts } from "expo-font";
-import { SafeAreaView, Text, View, Platform } from "react-native";
+import { Text, View } from "react-native";
 import { ThemeProvider } from "@shopify/restyle";
-import { theme } from "./src/Components";
-
-const AuthenticationStack = createStackNavigator();
-
-const AuthenticationNavigator = () => {
-    return (
-        <AuthenticationStack.Navigator headerMode='none'>
-            <AuthenticationStack.Screen
-                name='Onboarding'
-                component={Onboarding}
-            />
-        </AuthenticationStack.Navigator>
-    );
-};
+import { theme } from "./src/Restyle";
+import { AuthenticationNavigator } from "./src/Authentication";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default () => {
+    //Loading assets
     const [fontsLoaded, fontLoadError] = useFonts({
         "SF-Pro": require("./assets/fonts/SFProDisplay-Regular.ttf"),
         "SF-Pro-Bold": require("./assets/fonts/SFProDisplay-Bold.ttf"),
@@ -45,16 +33,12 @@ export default () => {
     }
 
     return (
-        <ThemeProvider theme={theme}>
-            {Platform.OS === "ios" ? (
+        <SafeAreaProvider>
+            <ThemeProvider theme={theme}>
                 <NavigationContainer>
                     <AuthenticationNavigator />
                 </NavigationContainer>
-            ) : (
-                <NavigationContainer>
-                    <AuthenticationNavigator />
-                </NavigationContainer>
-            )}
-        </ThemeProvider>
+            </ThemeProvider>
+        </SafeAreaProvider>
     );
 };
