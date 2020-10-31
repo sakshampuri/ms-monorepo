@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+    Dimensions,
     Image,
     Platform,
     StatusBar,
@@ -19,12 +20,14 @@ interface Props {
 
 export const assets = [require("./assets/pattern.png")];
 
+const windowHeight = Dimensions.get("screen").height;
+
 const Container: React.FC<Props> = ({ children, footer, curveRight }) => {
     const { width } = useWindowDimensions();
     const insets = useSafeAreaInsets();
     const height = (width * 750) / 1125;
     return (
-        <Box flex={1} backgroundColor='primaryText'>
+        <Box height={windowHeight} backgroundColor='primaryText'>
             {Platform.OS === "ios" && <StatusBar barStyle='light-content' />}
             <Box backgroundColor='white'>
                 <Box
