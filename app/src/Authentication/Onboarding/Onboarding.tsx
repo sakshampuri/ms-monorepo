@@ -79,7 +79,7 @@ export const slides = [
         title: "Excentric",
         subtitle: "Get pumped up",
         description:
-            "We aim to energize your lazy daytime durations and convert you into a productivity powerhousr",
+            "We aim to energize your lazy daytime durations and convert you into a productivity powerhouse",
         color: "#233132",
         image: require("../../../assets/images/3.jpg"),
     },

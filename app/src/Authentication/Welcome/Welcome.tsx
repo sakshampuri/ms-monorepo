@@ -1,18 +1,9 @@
 import * as React from "react";
 import { Dimensions, Image, StyleSheet } from "react-native";
-import { Button } from "../../Components";
+import { Button, useFirebaseAuth } from "../../Components";
 import { Routes, StackNavigationProps } from "../../Components/Routes";
 import { Box, Text, theme } from "../../Restyle";
-import firebase from "firebase";
-import * as Google from "expo-auth-session/providers/google";
-import Constants from "expo-constants";
-import { FirebaseContext, firebaseContextInfo } from "../../Components";
-
-if (!firebase.apps.length) {
-    const config = firebaseContextInfo.config;
-    firebase.initializeApp(config);
-    console.log("inputconfig: ", config);
-}
+import Spinner from "react-native-loading-spinner-overlay";
 
 const { width } = Dimensions.get("window");
 const styles = StyleSheet.create({
@@ -30,28 +21,10 @@ const picture = require("../../../assets/images/5.jpg");
 const Welcome: React.FC<Props> = ({
     navigation,
 }: StackNavigationProps<Routes, "Welcome">) => {
-    const firebaseConfig = React.useContext(FirebaseContext).config;
-    const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-        clientId: Constants.manifest.extra.clientId,
-    });
-
-    React.useEffect(() => {
-        if (response?.type === "success") {
-            console.log(response);
-            const { id_token } = response.params;
-
-            const credential = firebase.auth.GoogleAuthProvider.credential(
-                id_token
-            );
-            console.log(credential);
-            firebase.auth().signInWithCredential(credential);
-            const user = firebase.auth().currentUser;
-            console.log(user);
-        }
-    }, [response]);
-
+    const [promptAsync, _, loading] = useFirebaseAuth();
     return (
         <Box flex={1} borderBottomRightRadius='xl' backgroundColor='white'>
+            <Spinner visible={loading} textContent='Logging you in...' />
             <Box flex={1} alignItems='center' justifyContent='flex-end'>
                 <Image source={picture} style={styles.picture} />
             </Box>
