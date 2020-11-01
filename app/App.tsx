@@ -7,6 +7,7 @@ import { ThemeProvider } from "@shopify/restyle";
 import { theme } from "./src/Restyle";
 import { AuthenticationNavigator } from "./src/Authentication";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { AuthContext, authType } from "./src/Components";
 
 export default () => {
     //Loading assets
@@ -15,6 +16,11 @@ export default () => {
         "SF-Pro-Bold": require("./assets/fonts/SFProDisplay-Bold.ttf"),
         "SF-Pro-Semibold": require("./assets/fonts/SFProDisplay-Semibold.ttf"),
     });
+    const [authState, changeAuthState] = React.useState<authType["authState"]>({
+        state: undefined,
+        user: undefined,
+    });
+    const contextValue = { authState, changeAuthState };
 
     if (!fontsLoaded) {
         return <AppLoading />;
@@ -35,9 +41,11 @@ export default () => {
     return (
         <SafeAreaProvider>
             <ThemeProvider theme={theme}>
-                <NavigationContainer>
-                    <AuthenticationNavigator />
-                </NavigationContainer>
+                <AuthContext.Provider value={contextValue}>
+                    <NavigationContainer>
+                        <AuthenticationNavigator />
+                    </NavigationContainer>
+                </AuthContext.Provider>
             </ThemeProvider>
         </SafeAreaProvider>
     );
