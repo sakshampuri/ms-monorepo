@@ -4,10 +4,8 @@ import { RectButton } from "react-native-gesture-handler";
 import { Box, theme } from "../../../Restyle";
 import FacebookIcon from "./FacebookIcon";
 import GoogleIcon from "./GoogleIcon";
-import * as Google from "expo-auth-session/providers/google";
-import Constants from "expo-constants";
-import firebase from "firebase";
-import { FirebaseContext } from "../../../Components";
+import { useFirebaseAuth } from "../../../Components";
+import Spinner from "react-native-loading-spinner-overlay";
 
 const SIZE = 50;
 const styles = StyleSheet.create({
@@ -26,7 +24,7 @@ interface Props {}
 
 interface ContainerProps {
     children: React.ReactNode;
-    onPress?: () => void;
+    onPress?: () => void | any;
 }
 
 const IconContainer: React.FC<ContainerProps> = ({ children, onPress }) => {
@@ -42,34 +40,12 @@ IconContainer.defaultProps = {
 };
 
 const Footer: React.FC<Props> = ({}) => {
-    const firebaseConfig = React.useContext(FirebaseContext).config;
-    if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-        console.log("inputconfig: ", firebaseConfig);
-    }
-
-    const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-        clientId: Constants.manifest.extra.clientId,
-    });
-
-    React.useEffect(() => {
-        if (response?.type === "success") {
-            console.log(response);
-            const { id_token } = response.params;
-
-            const credential = firebase.auth.GoogleAuthProvider.credential(
-                id_token
-            );
-            console.log(credential);
-            firebase.auth().signInWithCredential(credential);
-            const user = firebase.auth().currentUser;
-            console.log("user: ", user);
-        }
-    }, [response]);
+    const [googlePrompt, _, loading] = useFirebaseAuth();
 
     return (
         <Box flexDirection='row' alignItems='center' justifyContent='center'>
-            <IconContainer onPress={promptAsync}>
+            <Spinner visible={loading} textContent='Logging you in...' />
+            <IconContainer onPress={googlePrompt}>
                 <GoogleIcon />
             </IconContainer>
             <IconContainer>
