@@ -27,39 +27,44 @@ mood_data = [
 
 song_data = [
     {
-        "id": 1,
-        "title": "Mood Swings",
-        "artist": "Pop Smoke",
-        "album": "Shoot For The Stars Aim For The Moon",
-        "albumArt": "https://media.pitchfork.com/photos/5f02968d8813ffa92664f131/1:1/w_600/Shoot%20for%20the%20Stars%20Aim%20for%20the%20Moon_Pop%20Smoke.jpg",
-        "duration": "3.5",
-        "stream": "https://dataserve.com/linktoacrazysickasssong.mp3"
-    },
-    {
-        "id": 2,
-        "title": "Ballin",
-        "artist": "Mustard",
-        "album": "Shoot For The Stars Aim For The Moon",
-        "albumArt": "https://media.pitchfork.com/photos/5f02968d8813ffa92664f131/1:1/w_600/Shoot%20for%20the%20Stars%20Aim%20for%20the%20Moon_Pop%20Smoke.jpg",
-        "duration": "3.5",
-        "stream": "https://dataserve.com/linktoacrazysickasssong.mp3"
-    },
-    {
-        "id": 3,
-        "title": "Mood Swings",
-        "artist": "Pop Smoke",
-        "album": "Shoot For The Stars Aim For The Moon",
-        "albumArt": "https://media.pitchfork.com/photos/5f02968d8813ffa92664f131/1:1/w_600/Shoot%20for%20the%20Stars%20Aim%20for%20the%20Moon_Pop%20Smoke.jpg",
-        "duration": "3.5",
-        "stream": "https://dataserve.com/linktoacrazysickasssong.mp3"
-    },
-    {
-        "id": 4,
-        "title": "Mood Swings",
-        "artist": "Pop Smoke",
-        "album": "Shoot For The Stars Aim For The Moon",
-        "albumArt": "https://media.pitchfork.com/photos/5f02968d8813ffa92664f131/1:1/w_600/Shoot%20for%20the%20Stars%20Aim%20for%20the%20Moon_Pop%20Smoke.jpg",
-        "duration": "3.5",
-        "stream": "https://dataserve.com/linktoacrazysickasssong.mp3"
+        "moodId": 1,
+        "songs": [
+            {
+                "id": 1,
+                "title": "Mood Swings",
+                "artist": "Pop Smoke",
+                "album": "Shoot For The Stars Aim For The Moon",
+                "albumArt": "https://media.pitchfork.com/photos/5f02968d8813ffa92664f131/1:1/w_600/Shoot%20for%20the%20Stars%20Aim%20for%20the%20Moon_Pop%20Smoke.jpg",
+                "duration": "3.5",
+                "stream": "https://dataserve.com/linktoacrazysickasssong.mp3"
+            },
+            {
+                "id": 2,
+                "title": "Ballin",
+                "artist": "Mustard",
+                "album": "Shoot For The Stars Aim For The Moon",
+                "albumArt": "https://media.pitchfork.com/photos/5f02968d8813ffa92664f131/1:1/w_600/Shoot%20for%20the%20Stars%20Aim%20for%20the%20Moon_Pop%20Smoke.jpg",
+                "duration": "3.5",
+                "stream": "https://dataserve.com/linktoacrazysickasssong.mp3"
+            },
+            {
+                "id": 3,
+                "title": "Mood Swings",
+                "artist": "Pop Smoke",
+                "album": "Shoot For The Stars Aim For The Moon",
+                "albumArt": "https://media.pitchfork.com/photos/5f02968d8813ffa92664f131/1:1/w_600/Shoot%20for%20the%20Stars%20Aim%20for%20the%20Moon_Pop%20Smoke.jpg",
+                "duration": "3.5",
+                "stream": "https://dataserve.com/linktoacrazysickasssong.mp3"
+            },
+            {
+                "id": 4,
+                "title": "Mood Swings",
+                "artist": "Pop Smoke",
+                "album": "Shoot For The Stars Aim For The Moon",
+                "albumArt": "https://media.pitchfork.com/photos/5f02968d8813ffa92664f131/1:1/w_600/Shoot%20for%20the%20Stars%20Aim%20for%20the%20Moon_Pop%20Smoke.jpg",
+                "duration": "3.5",
+                "stream": "https://dataserve.com/linktoacrazysickasssong.mp3"
+            }
+        ]
     }
 ]
