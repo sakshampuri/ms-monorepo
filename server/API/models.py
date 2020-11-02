@@ -17,8 +17,3 @@ class Song(BaseModel):
     album: str
     albumArt: HttpUrl
     duration: Optional[str]
-
-class Image(BaseModel):
-    image_url: HttpUrl
-    image_id: int
-
