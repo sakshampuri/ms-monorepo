@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional,List
 from fastapi import FastAPI
 from pydantic import BaseModel,HttpUrl
 app = FastAPI()
@@ -24,7 +24,7 @@ def read_root():
 
 @app.put("/moods/{id}")
 async def create_mood(id: int, mood: Mood):
-    return {"id": id,"name":mood.name, **item.dict()}
+    return {"id": id,"name":mood.name, **mood.dict()}
 
 @app.get("/moods/{id}")
 def read_mood(id: int, name: Optional[str] = None):
@@ -32,5 +32,5 @@ def read_mood(id: int, name: Optional[str] = None):
 
 @app.put("/songs/{song_id}")
 async def add_song(song_id: int, song: Song,song_name: Optional[str] = None):
-    return song.dict()
+    return {**song.dict()}
     
