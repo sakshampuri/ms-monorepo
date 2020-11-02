@@ -15,10 +15,11 @@
         },
         "assetBundlePatterns": ["**/*"],
         "ios": {
-            "supportsTablet": true
+            "supportsTablet": true,
+            "bundleIdentifier": "com.moodswings.app"
         },
         "android": {
-            "package": "com.smdir.app",
+            "package": "com.moodswings.app",
             "versionCode": 1
         },
         "scheme": "https"

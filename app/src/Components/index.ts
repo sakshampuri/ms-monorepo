@@ -56,14 +56,17 @@ export const useFirebaseAuth = () => {
 
     const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
         {
-            androidClientId: Constants.manifest.extra.androidClientId,
-            iosClientId: Constants.manifest.extra.iosClientId,
-            clientId: Constants.manifest.extra.clientId,
+            androidClientId: process.env.ANDROID_CLIENT_ID,
+            iosClientId: process.env.IOS_CLIENT_ID,
+            clientId: process.env.CLIENT_ID,
         },
         {
             useProxy: true,
         }
     );
+    console.log(process.env.IOS_CLIENT_ID);
+
+    React.useEffect(() => console.log("request: ", request), [request]);
 
     const [loading, setLoading] = React.useState(false);
 
