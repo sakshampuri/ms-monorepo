@@ -3,12 +3,6 @@ from fastapi import FastAPI
 from pydantic import BaseModel,HttpUrl
 app = FastAPI()
 
-class Mood(BaseModel):
-    name: str
-    id: int
-    images: List[Image]
-    songs: List[Song]
-
 class Song(BaseModel):
     song_url: HttpUrl
     song_id: int
@@ -17,6 +11,12 @@ class Song(BaseModel):
 class Image(BaseModel):
     image_url: HttpUrl
     image_id: int
+
+class Mood(BaseModel):
+    name: str
+    id: int
+    images: List[Image]
+    songs: List[Song]
 
 @app.get("/")
 def read_root():
