@@ -18,6 +18,7 @@ const palette = {
     gray: "rgba(12,13,52,0.7)",
     onyx: "#0F0E0C",
     amarnath: "#D82F51",
+    mirage: "#151726",
 };
 
 const theme = createTheme({
@@ -27,6 +28,7 @@ const theme = createTheme({
         white: palette.white,
         darkBrown: palette.onyx,
         danger: palette.amarnath,
+        homeDark: palette.mirage,
 
         //Text
         secondaryText: palette.gray,
@@ -68,8 +70,8 @@ const theme = createTheme({
             color: "primaryText",
             marginBottom: "m",
             lineHeight: 30,
-            alignSelf: "center",
-            alignItems: "center",
+            textAlign: "center",
+            textAlignVertical: "center",
         },
         subtitle: {
             fontSize: 16,
@@ -78,6 +80,7 @@ const theme = createTheme({
             textAlign: "center",
             marginBottom: "xl",
             fontFamily: "SF-Pro",
+            textAlignVertical: "center",
         },
         label: {
             textAlign: "center",
