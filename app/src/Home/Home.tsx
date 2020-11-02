@@ -71,15 +71,33 @@ const Home: React.FC<Props> = () => {
 
     const insets = useSafeAreaInsets();
 
+    const playColors = ["#FF752F", "#862AFF", "#076258"];
+
     const playlistItemRender = ({ item }) => {
         return (
             <Box
-                backgroundColor='white'
                 width={325}
                 height={170}
                 my='s'
                 borderRadius='s'
-            ></Box>
+                alignItems='flex-start'
+                p='m'
+                style={{ backgroundColor: "#FAFAFA" }}
+            >
+                <Text
+                    variant='title'
+                    fontSize={16}
+                    style={{ color: playColors[item.id % playColors.length] }}
+                >
+                    {item.title}
+                </Text>
+                <Text
+                    variant='subtitle'
+                    style={{ textAlign: "left", color: "#173B68" }}
+                >
+                    {item.description}
+                </Text>
+            </Box>
         );
     };
 
@@ -125,17 +143,26 @@ const Home: React.FC<Props> = () => {
                                 pt='m'
                                 pl='m'
                                 flex={1}
+                                flexDirection='column'
                             >
                                 <Text
                                     variant='subtitle'
                                     fontFamily='ArialMT'
                                     opacity={0.7}
                                     fontSize={10}
-                                    style={{ color: color ?? "white" }}
+                                    mb={0}
+                                    style={{
+                                        color: color ?? "white",
+                                    }}
                                 >
                                     {title.toUpperCase()}
                                 </Text>
-                                <Text variant='subtitle' color='white'>
+                                <Text
+                                    variant='subtitle'
+                                    style={{
+                                        color: color ?? "white",
+                                    }}
+                                >
                                     {data.toUpperCase()}
                                 </Text>
                             </Box>
@@ -152,17 +179,22 @@ const Home: React.FC<Props> = () => {
                 flex={1}
                 px='l'
                 pt='xl'
-                style={{ backgroundColor: "#FAFAFA" }}
+                backgroundColor='white'
             >
-                <Box
-                    flexDirection='row'
-                    justifyContent='space-between'
-                    alignItems='center'
-                >
-                    <Text fontFamily='ArialMT' variant='title' color='homeDark'>
+                <Box flexDirection='row' justifyContent='space-between'>
+                    <Text
+                        fontFamily='ArialMT'
+                        variant='title'
+                        color='homeDark'
+                        style={{ textAlignVertical: "center" }}
+                    >
                         Availaible Playlists
                     </Text>
-                    <Text fontFamily='ArialMT' variant='subtitle'>
+                    <Text
+                        fontFamily='ArialMT'
+                        variant='subtitle'
+                        style={{ textAlignVertical: "center" }}
+                    >
                         5 playlists
                     </Text>
                 </Box>
