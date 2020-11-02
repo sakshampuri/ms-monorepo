@@ -31,6 +31,6 @@ def read_mood(id: int, name: Optional[str] = None):
     return {"id": id, "name": name}
 
 @app.put("/songs/{song_id}")
-async def add_song(song_id: int,song_name=Optional[str]=None, song: Song ):
-    return **song.dict()
+async def add_song(song_id: int, song: Song,song_name: Optional[str] = None):
+    return song.dict()
     
