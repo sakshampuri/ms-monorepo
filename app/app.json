@@ -18,7 +18,7 @@
             "supportsTablet": true
         },
         "android": {
-            "package": "com.yourcompany.yourappname",
+            "package": "com.smdir.app",
             "versionCode": 1
         },
         "scheme": "https"

@@ -2,6 +2,7 @@ import * as React from "react";
 import Constants from "expo-constants";
 import firebase from "firebase";
 import * as Google from "expo-auth-session/providers/google";
+import { ToastAndroid } from "react-native";
 
 export { default as Button } from "./Button";
 export { default as PageIndicator } from "./PageIndicator";
@@ -53,9 +54,16 @@ export const useFirebaseAuth = () => {
 
     const { authState, changeAuthState } = React.useContext(AuthContext);
 
-    const [_, response, promptAsync] = Google.useIdTokenAuthRequest({
-        clientId: Constants.manifest.extra.clientId,
-    });
+    const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
+        {
+            androidClientId: Constants.manifest.extra.androidClientId,
+            iosClientId: Constants.manifest.extra.iosClientId,
+            clientId: Constants.manifest.extra.clientId,
+        },
+        {
+            useProxy: true,
+        }
+    );
 
     const [loading, setLoading] = React.useState(false);
 
@@ -77,12 +85,11 @@ export const useFirebaseAuth = () => {
                         email: user.email,
                         picture: user.photoURL,
                     };
-                    setLoading(false);
                     changeAuthState({ user: userSet, state: "login" });
                 } else {
-                    setLoading(false);
                     changeAuthState({ state: "logout" });
                 }
+                setLoading(false);
             });
         }
     }, [response]);
