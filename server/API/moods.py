@@ -5,13 +5,12 @@ from API.playlistRouter import playlist
 from typing import List
 from fastapi import Header, APIRouter
 
+# Initialising the API Router - moods
 moods = APIRouter()
 
-@moods.get('/',response_model=List[Mood])
+
+@moods.get('/', response_model=List[Mood])
 async def index():
     return mood_data
 
 moods.include_router(playlist)
-
-
-
