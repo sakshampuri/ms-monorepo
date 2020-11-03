@@ -30,12 +30,14 @@ export type userType = {
     picture: string;
 };
 
+export type authState = {
+    state: "login" | "logout" | undefined;
+    user?: userType | undefined;
+};
+
 export type authType = {
-    changeAuthState: React.Dispatch<React.SetStateAction<any>>;
-    authState: {
-        state: "login" | "logout" | undefined;
-        user?: userType | undefined;
-    };
+    changeAuthState: React.Dispatch<React.SetStateAction<authState>>;
+    authState: authState;
 };
 
 export const AuthContext = React.createContext<authType>({
