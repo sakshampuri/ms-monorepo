@@ -1,23 +1,93 @@
 import * as React from "react";
-import { Box, Text } from "../Restyle";
+import { Box, Text, theme } from "../Restyle";
 import { AuthContext } from "../Components";
-import { Image } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import HeaderSlider from "./HeaderSlider";
+import PlaylistContainer from "./PlaylistContainer";
+import { AntDesign } from "@expo/vector-icons";
+import { BorderlessButton } from "react-native-gesture-handler";
+import { Alert } from "react-native";
 
-type Props = {};
+const Home: React.FC = () => {
+    const { authState, changeAuthState } = React.useContext(AuthContext);
+    const { user } = authState;
 
-const Home: React.FC<Props> = () => {
-    const { user } = React.useContext(AuthContext).authState;
+    const insets = useSafeAreaInsets();
+
+    const handleSignOut = () => {
+        signOutAlert(() => {
+            changeAuthState({ state: undefined, user: undefined });
+        });
+    };
+
     return (
-        <Box justifyContent='center' flex={1} alignItems='center'>
-            <Image
-                source={{ uri: user.picture }}
-                style={{ width: 200, height: 200 }}
-            />
-            <Text variant='title'>HOME</Text>
-            <Text variant='title'> Your Name: {user?.name}</Text>
-            <Text variant='title'> Your Email: {user?.email}</Text>
+        <Box flex={1} backgroundColor='homeDark'>
+            {/** HEADER **/}
+            <Box
+                style={{ marginTop: insets.top }}
+                alignItems='flex-start'
+                p='l'
+            >
+                <Box flexDirection='row'>
+                    <Box>
+                        <Text
+                            variant='title'
+                            color='white'
+                            fontFamily='ArialMT'
+                            textAlign='left'
+                            marginBottom={0}
+                        >
+                            Hi {user?.name.split(" ")[0]},
+                        </Text>
+                        <Text
+                            variant='subtitle'
+                            fontFamily='ArialMT'
+                            color='white'
+                            opacity={0.6}
+                            mb='l'
+                        >
+                            Here is your weekly listening history
+                        </Text>
+                    </Box>
+
+                    <BorderlessButton
+                        style={{
+                            flexDirection: "row",
+                            justifyContent: "flex-end",
+                            flex: 1,
+                            marginTop: theme.spacing.m,
+                        }}
+                        shouldCancelWhenOutside={true}
+                        rippleColor={"rgba(0,0,0,0)"}
+                        activeOpacity={0.5}
+                        onPress={handleSignOut}
+                    >
+                        <AntDesign name='poweroff' size={18} color='white' />
+                    </BorderlessButton>
+                </Box>
+
+                {/** HEADER SCROLLVIEW **/}
+                <HeaderSlider />
+            </Box>
+
+            {/** Main Playlist Container **/}
+            <PlaylistContainer />
         </Box>
     );
+};
+
+const signOutAlert = (triggerSignout: () => void) => {
+    Alert.alert("Confirm", "Are you sure you want to log out?", [
+        {
+            text: "Cancel",
+            style: "cancel",
+        },
+        {
+            text: "OK",
+            style: "default",
+            onPress: triggerSignout,
+        },
+    ]);
 };
 
 export default Home;

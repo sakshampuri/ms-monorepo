@@ -14,3 +14,5 @@ node_modules/
 .env
 app.config.ts
 .expo-shared/
+android/
+ios/
