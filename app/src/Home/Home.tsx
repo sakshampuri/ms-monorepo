@@ -7,6 +7,7 @@ import PlaylistContainer from "./PlaylistContainer";
 import { AntDesign } from "@expo/vector-icons";
 import { BorderlessButton } from "react-native-gesture-handler";
 import { Alert } from "react-native";
+import Player from "../AudioPlayer";
 
 const Home: React.FC = () => {
     const { authState, changeAuthState } = React.useContext(AuthContext);
@@ -19,6 +20,8 @@ const Home: React.FC = () => {
             changeAuthState({ state: undefined, user: undefined });
         });
     };
+
+    const [playerVisible, changePlayerVisible] = React.useState(false);
 
     return (
         <Box flex={1} backgroundColor='homeDark'>
@@ -60,7 +63,7 @@ const Home: React.FC = () => {
                         shouldCancelWhenOutside={true}
                         rippleColor={"rgba(0,0,0,0)"}
                         activeOpacity={0.5}
-                        onPress={handleSignOut}
+                        onPress={() => changePlayerVisible(!playerVisible)}
                     >
                         <AntDesign name='poweroff' size={18} color='white' />
                     </BorderlessButton>
@@ -72,6 +75,9 @@ const Home: React.FC = () => {
 
             {/** Main Playlist Container **/}
             <PlaylistContainer />
+
+            {/** Audio Player **/}
+            <Player visible={playerVisible} {...{ changePlayerVisible }} />
         </Box>
     );
 };
