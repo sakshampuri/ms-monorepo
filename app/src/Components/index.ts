@@ -2,11 +2,18 @@ import * as React from "react";
 import Constants from "expo-constants";
 import firebase from "firebase";
 import * as Google from "expo-auth-session/providers/google";
-import { ToastAndroid } from "react-native";
+import { Alert, Platform, ToastAndroid } from "react-native";
 
 export { default as Button } from "./Button";
 export { default as PageIndicator } from "./PageIndicator";
 export { default as Container } from "./Container";
+
+export const showErr = (err: string) => {
+    Platform.select({
+        ios: Alert.alert("Alert", err, [{ text: "OK" }]),
+        android: ToastAndroid.show(err, ToastAndroid.LONG),
+    });
+};
 
 export const firebaseContextInfo = {
     config: {
