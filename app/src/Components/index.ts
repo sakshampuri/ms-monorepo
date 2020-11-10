@@ -8,6 +8,8 @@ export { default as Button } from "./Button";
 export { default as PageIndicator } from "./PageIndicator";
 export { default as Container } from "./Container";
 
+export const BASE_URL = "http://192.168.1.8:8000/";
+
 export const showErr = (err: string) => {
     Platform.OS === "ios"
         ? Alert.alert("Alert", err, [{ text: "OK" }])

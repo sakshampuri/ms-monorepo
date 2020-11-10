@@ -9,7 +9,8 @@ import { BorderlessButton } from "react-native-gesture-handler";
 import { Alert } from "react-native";
 import Player from "../AudioPlayer";
 import { playerActions, playerStateType } from "../AudioPlayer/types";
-
+import { LogBox } from "react-native";
+LogBox.ignoreLogs(["Setting a timer"]);
 // Following is the state set up of the player
 
 // Defaults
@@ -39,9 +40,11 @@ const playerStateReducer = (
             };
         case "launch":
             return {
+                ...state,
                 currentState: "buffering",
                 visible: true,
                 playlistId: action.playlistId,
+                error: null,
             };
         case "play":
             return { ...state, currentState: "playing" };
@@ -62,7 +65,7 @@ const Home: React.FC = () => {
         });
     };
 
-    const [{ visible, currentState }, dispatch] = React.useReducer(
+    const [{ visible, currentState, playlistId }, dispatch] = React.useReducer(
         playerStateReducer,
         initPlayerState
     );
@@ -121,7 +124,7 @@ const Home: React.FC = () => {
             <PlaylistContainer {...{ dispatch }} />
 
             {/** Audio Player **/}
-            <Player {...{ visible, dispatch, currentState }} />
+            <Player {...{ visible, dispatch, currentState, playlistId }} />
         </Box>
     );
 };

@@ -10,7 +10,7 @@ type wrapperType = {
     callback?: (action: actionType) => void;
 };
 
-export const PLAYER_HEIGHT = 100;
+export const PLAYER_HEIGHT = 120;
 const AudioIcons: React.FC<wrapperType> = ({
     iconName,
     inconSize,

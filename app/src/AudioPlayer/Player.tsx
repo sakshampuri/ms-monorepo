@@ -6,9 +6,9 @@ import {
     StyleSheet,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Box } from "../Restyle";
+import { Box, Text } from "../Restyle";
 import { Audio } from "expo-av";
-import { showErr } from "../Components";
+import { BASE_URL, showErr } from "../Components";
 import AudioIcons, { PLAYER_HEIGHT } from "./AudioIcons";
 import { EvilIcons } from "@expo/vector-icons";
 import { playerActions, playerStateType } from "./types";
@@ -18,11 +18,14 @@ import {
     _onPlaybackStatusUpdate,
 } from "./Utility";
 import { AVPlaybackSource } from "expo-av/build/AV";
+import { useQuery } from "react-query";
+import Spinner from "react-native-loading-spinner-overlay";
 
 interface Props {
     visible: boolean;
     dispatch: React.Dispatch<playerActions>;
     currentState: playerStateType["currentState"];
+    playlistId: number | undefined | null;
 }
 
 export enum actionType {
@@ -34,18 +37,13 @@ export enum actionType {
 
 const { width } = Dimensions.get("window");
 
-const songs = [
-    "https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Comfort_Fit_-_03_-_Sorry.mp3",
-    "https://ia800304.us.archive.org/34/items/PaulWhitemanwithMildredBailey/PaulWhitemanwithMildredBailey-AllofMe.mp3",
-    "https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Podington_Bear_-_Rubber_Robot.mp3",
-];
-
 const icons = ["stepbackward", "pause", "stepforward"];
 
 const playMusicAsync = async (
     musicInstance: React.MutableRefObject<Audio.Sound>,
     currentIndex: React.MutableRefObject<number>,
-    dispatch: React.Dispatch<playerActions>
+    dispatch: React.Dispatch<playerActions>,
+    data: { songs: Array<{ id: number }>; playlistId: number }
 ) => {
     if (!musicInstance.current) {
         musicInstance.current = new Audio.Sound();
@@ -54,19 +52,26 @@ const playMusicAsync = async (
         musicInstance.current = null;
     }
     const source: AVPlaybackSource = {
-        uri: songs[currentIndex.current],
+        uri: `${BASE_URL}moods/${data.playlistId}/stream/${
+            data.songs[currentIndex.current].id
+        }`,
     };
     console.log("current Index: ", currentIndex.current);
     const { sound } = await Audio.Sound.createAsync(
         source,
-        { shouldPlay: false },
+        { shouldPlay: true },
         _onPlaybackStatusUpdate(dispatch),
-        true
+        false
     );
     musicInstance.current = sound;
 };
 
-const Player: React.FC<Props> = ({ dispatch, visible, currentState }) => {
+const Player: React.FC<Props> = ({
+    dispatch,
+    visible,
+    currentState,
+    playlistId,
+}) => {
     const insets = useSafeAreaInsets();
 
     //Animation Config
@@ -82,9 +87,23 @@ const Player: React.FC<Props> = ({ dispatch, visible, currentState }) => {
         toValue: 1,
     });
 
+    const { isLoading, isError, data: songs } = useQuery(
+        ["songs", playlistId],
+        async (_, playlistId) =>
+            fetch(`${BASE_URL}moods/${playlistId}`)
+                .then((res) => res.json())
+                .then((res) => {
+                    return res[0]?.songs;
+                })
+    );
+
     // Music Main Instance
     const musicInstance = React.useRef<Audio.Sound>(new Audio.Sound());
     const currentIndex = React.useRef<number>(0);
+
+    React.useEffect(() => {
+        currentIndex.current = 0;
+    }, [playlistId]);
 
     React.useEffect(() => {
         if (visible) {
@@ -99,11 +118,17 @@ const Player: React.FC<Props> = ({ dispatch, visible, currentState }) => {
                     if (!granted) {
                         throw new Error("Could not get Permission");
                     } else {
-                        playMusicAsync(
-                            musicInstance,
-                            currentIndex,
-                            dispatch
-                        ).catch((err) => showErr(err.toString()));
+                        if (isLoading) dispatch({ type: "request" });
+                        else if (!isError)
+                            playMusicAsync(
+                                musicInstance,
+                                currentIndex,
+                                dispatch,
+                                {
+                                    playlistId,
+                                    songs,
+                                }
+                            ).catch((err) => showErr(err.toString()));
                     }
                 })
                 .catch((err) => console.log(err));
@@ -114,7 +139,7 @@ const Player: React.FC<Props> = ({ dispatch, visible, currentState }) => {
                 .catch((err) => console.log(err));
             y.current = new Animated.Value(PLAYER_HEIGHT);
         }
-    }, [visible]);
+    }, [visible, playlistId, isLoading]);
 
     React.useEffect(() => {
         switch (currentState) {
@@ -124,36 +149,51 @@ const Player: React.FC<Props> = ({ dispatch, visible, currentState }) => {
             case "playing":
                 fadeIn.start();
                 break;
-            case "paused":
+            case "paused": {
+                fadeIn.start();
                 musicInstance.current?.pauseAsync();
+            }
         }
     }, [currentState]);
 
     //Icon Press Actions
-    const handlePlayerIconPress = (action: actionType) => {
+    const handlePlayerIconPress = async (action: actionType) => {
         switch (action) {
             case "PLAY_PAUSE":
-                currentState === "paused"
-                    ? musicInstance.current?.playAsync()
-                    : musicInstance.current?.pauseAsync();
+                {
+                    if (currentState === "paused") {
+                        dispatch({ type: "play" });
+                        await musicInstance.current?.playAsync();
+                    } else {
+                        dispatch({ type: "pause" });
+                        await musicInstance.current?.pauseAsync();
+                    }
+                }
                 break;
             case "GO_BACK":
                 {
                     if (currentIndex.current > 0) {
                         currentIndex.current--;
-                        playMusicAsync(musicInstance, currentIndex, dispatch);
+                        playMusicAsync(musicInstance, currentIndex, dispatch, {
+                            playlistId,
+                            songs,
+                        });
                     } else showErr("You're at the beginning of the playlist");
                 }
                 break;
             case "GO_FORWARD": {
                 if (currentIndex.current < songs.length - 1) {
                     currentIndex.current++;
-                    playMusicAsync(musicInstance, currentIndex, dispatch);
+                    playMusicAsync(musicInstance, currentIndex, dispatch, {
+                        songs,
+                        playlistId,
+                    });
                 } else showErr("Reached End of Playlist");
             }
         }
     };
 
+    if (isError) return <Text>Could Not fetch Songs</Text>;
     return (
         <>
             {visible && (
@@ -166,6 +206,12 @@ const Player: React.FC<Props> = ({ dispatch, visible, currentState }) => {
                         paddingBottom: insets.bottom,
                     }}
                 >
+                    <Spinner visible={isLoading} />
+                    {!isLoading && (
+                        <Text variant='title' color='white'>
+                            {songs[currentIndex.current].title}
+                        </Text>
+                    )}
                     <Box
                         flex={1}
                         flexDirection='row'
