@@ -1,6 +1,6 @@
 import * as React from "react";
 import { RectButton } from "react-native-gesture-handler";
-import { Text } from "../Restyle";
+import { Text, theme } from "../Restyle";
 import { ButtonContainer, ButtonProps } from "../Restyle";
 
 const Button: React.FC<ButtonProps> = ({
@@ -11,7 +11,17 @@ const Button: React.FC<ButtonProps> = ({
 }: ButtonProps) => {
     const color = variant === "primary" ? "white" : "primaryText";
     return (
-        <RectButton {...{ onPress }}>
+        <RectButton
+            {...{ onPress }}
+            style={{
+                height: 50,
+                width: 255,
+                alignSelf: "center",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 100,
+            }}
+        >
             <ButtonContainer {...{ variant, style }}>
                 <Text variant='label' {...{ color }}>
                     {label}
