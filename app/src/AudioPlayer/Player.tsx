@@ -146,7 +146,7 @@ const Player: React.FC<Props> = ({ dispatch, visible, currentState }) => {
                 }
                 break;
             case "GO_FORWARD": {
-                if (currentIndex.current < songs.length) {
+                if (currentIndex.current < songs.length - 1) {
                     currentIndex.current++;
                     playMusicAsync(musicInstance, currentIndex, dispatch);
                 } else showErr("Reached End of Playlist");

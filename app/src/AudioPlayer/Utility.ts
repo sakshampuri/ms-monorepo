@@ -46,6 +46,7 @@ export const _onPlaybackStatusUpdate = (
         // Update your UI for the unloaded state
 
         console.log("not loaded");
+        dispatch({ type: "request" });
         if (playbackStatus.isLoaded === false && playbackStatus.error) {
             showErr(
                 `Encountered a fatal error during playback: ${playbackStatus.error}`

@@ -27,11 +27,16 @@ const playerStateReducer = (
         case "request":
             return { ...state, currentState: "buffering" };
         case "success":
-            return { ...state, currentState: "playing" };
+            return { ...state, currentState: "playing", error: null };
         case "fail":
             return { ...state, currentState: "paused", error: action.err };
         case "close":
-            return { currentState: "paused", visible: false };
+            return {
+                currentState: "paused",
+                visible: false,
+                error: null,
+                playlistId: null,
+            };
         case "launch":
             return {
                 currentState: "buffering",
