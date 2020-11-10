@@ -1,12 +1,15 @@
 import * as React from "react";
 import { FlatList } from "react-native-gesture-handler";
+import { playerActions } from "../AudioPlayer/types";
 import { Box, Text } from "../Restyle";
 import MoodItem from "./MoodItem";
 import { playlistData } from "./TempData";
 
-interface Props {}
+interface Props {
+    dispatch: React.Dispatch<playerActions>;
+}
 
-const PlaylistContainer: React.FC<Props> = ({}) => {
+const PlaylistContainer: React.FC<Props> = ({ dispatch }) => {
     return (
         <Box
             mt='m'
@@ -39,7 +42,7 @@ const PlaylistContainer: React.FC<Props> = ({}) => {
                 data={playlistData}
                 showsVerticalScrollIndicator={false}
                 bounces={false}
-                renderItem={MoodItem}
+                renderItem={({ item }) => <MoodItem {...{ item, dispatch }} />}
                 keyExtractor={(_, item) => item.toString()}
                 contentContainerStyle={{ alignItems: "center" }}
             />
