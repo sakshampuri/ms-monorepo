@@ -8,6 +8,42 @@ import { AntDesign } from "@expo/vector-icons";
 import { BorderlessButton } from "react-native-gesture-handler";
 import { Alert } from "react-native";
 import Player from "../AudioPlayer";
+import { playerActions, playerStateType } from "../AudioPlayer/types";
+
+// Following is the state set up of the player
+
+// Defaults
+const initPlayerState: playerStateType = {
+    visible: false,
+    currentState: "buffering",
+};
+
+// Reducer
+const playerStateReducer = (
+    state: playerStateType,
+    action: playerActions
+): playerStateType => {
+    switch (action.type) {
+        case "request":
+            return { ...state, currentState: "buffering" };
+        case "success":
+            return { ...state, currentState: "playing" };
+        case "fail":
+            return { ...state, currentState: "paused", error: action.err };
+        case "close":
+            return { currentState: "paused", visible: false };
+        case "launch":
+            return {
+                currentState: "buffering",
+                visible: true,
+                playlistId: action.playlistId,
+            };
+        case "play":
+            return { ...state, currentState: "playing" };
+        case "pause":
+            return { ...state, currentState: "paused" };
+    }
+};
 
 const Home: React.FC = () => {
     const { authState, changeAuthState } = React.useContext(AuthContext);
@@ -21,7 +57,10 @@ const Home: React.FC = () => {
         });
     };
 
-    const [playerVisible, changePlayerVisible] = React.useState(false);
+    const [{ visible, currentState }, dispatch] = React.useReducer(
+        playerStateReducer,
+        initPlayerState
+    );
 
     return (
         <Box flex={1} backgroundColor='homeDark'>
@@ -63,7 +102,7 @@ const Home: React.FC = () => {
                         shouldCancelWhenOutside={true}
                         rippleColor={"rgba(0,0,0,0)"}
                         activeOpacity={0.5}
-                        onPress={() => changePlayerVisible(!playerVisible)}
+                        onPress={handleSignOut}
                     >
                         <AntDesign name='poweroff' size={18} color='white' />
                     </BorderlessButton>
@@ -74,10 +113,10 @@ const Home: React.FC = () => {
             </Box>
 
             {/** Main Playlist Container **/}
-            <PlaylistContainer />
+            <PlaylistContainer {...{ dispatch }} />
 
             {/** Audio Player **/}
-            <Player visible={playerVisible} {...{ changePlayerVisible }} />
+            <Player {...{ visible, dispatch, currentState }} />
         </Box>
     );
 };
