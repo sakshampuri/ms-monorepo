@@ -1,9 +1,16 @@
 import * as React from "react";
 import { RectButton } from "react-native-gesture-handler";
+import { playerActions } from "../AudioPlayer/types";
 import { Box, Text, theme } from "../Restyle";
 
 const playColors = ["#FF752F", "#862AFF", "#076258"];
-const MoodItem = ({ item }) => (
+const MoodItem = ({
+    item,
+    dispatch,
+}: {
+    item: any;
+    dispatch: React.Dispatch<playerActions>;
+}) => (
     <RectButton
         style={{
             backgroundColor: "#FAFAFA",
@@ -14,6 +21,7 @@ const MoodItem = ({ item }) => (
             alignItems: "flex-start",
             padding: theme.spacing.m,
         }}
+        onPress={() => dispatch({ type: "launch", playlistId: item.id })}
     >
         <Text
             variant='title'
