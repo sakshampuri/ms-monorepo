@@ -9,10 +9,9 @@ export { default as PageIndicator } from "./PageIndicator";
 export { default as Container } from "./Container";
 
 export const showErr = (err: string) => {
-    Platform.select({
-        ios: Alert.alert("Alert", err, [{ text: "OK" }]),
-        android: ToastAndroid.show(err, ToastAndroid.LONG),
-    });
+    Platform.OS === "ios"
+        ? Alert.alert("Alert", err, [{ text: "OK" }])
+        : ToastAndroid.show(err, ToastAndroid.LONG);
 };
 
 export const firebaseContextInfo = {
