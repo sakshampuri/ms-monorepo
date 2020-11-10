@@ -27,7 +27,7 @@ mood_data = [
 
 song_data = [
     {
-        "moodId": 1,
+        "mId": 1,
         "songs": [
             {
                 "id": 1,
@@ -40,7 +40,7 @@ song_data = [
             },
             {
                 "id": 2,
-                "title": "Ballin",
+                "title": "LLizard",
                 "artist": "Mustard",
                 "album": "Shoot For The Stars Aim For The Moon",
                 "albumArt": "https://media.pitchfork.com/photos/5f02968d8813ffa92664f131/1:1/w_600/Shoot%20for%20the%20Stars%20Aim%20for%20the%20Moon_Pop%20Smoke.jpg",
@@ -49,7 +49,7 @@ song_data = [
             },
             {
                 "id": 3,
-                "title": "Mood Swings",
+                "title": "LLizard",
                 "artist": "Pop Smoke",
                 "album": "Shoot For The Stars Aim For The Moon",
                 "albumArt": "https://media.pitchfork.com/photos/5f02968d8813ffa92664f131/1:1/w_600/Shoot%20for%20the%20Stars%20Aim%20for%20the%20Moon_Pop%20Smoke.jpg",
