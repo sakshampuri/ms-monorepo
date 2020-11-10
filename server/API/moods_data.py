@@ -31,39 +31,162 @@ song_data = [
         "songs": [
             {
                 "id": 1,
-                "title": "Mood Swings",
-                "artist": "Pop Smoke",
-                "album": "Shoot For The Stars Aim For The Moon",
-                "albumArt": "https://media.pitchfork.com/photos/5f02968d8813ffa92664f131/1:1/w_600/Shoot%20for%20the%20Stars%20Aim%20for%20the%20Moon_Pop%20Smoke.jpg",
-                "duration": "3.5",
-                "stream": "https://dataserve.com/linktoacrazysickasssong.mp3"
+                "title": "Numb",
             },
             {
                 "id": 2,
-                "title": "LLizard",
-                "artist": "Mustard",
-                "album": "Shoot For The Stars Aim For The Moon",
-                "albumArt": "https://media.pitchfork.com/photos/5f02968d8813ffa92664f131/1:1/w_600/Shoot%20for%20the%20Stars%20Aim%20for%20the%20Moon_Pop%20Smoke.jpg",
-                "duration": "3.5",
-                "stream": "https://dataserve.com/linktoacrazysickasssong.mp3"
+                "title": "In The End",
+            },
+            {
+                "id":3,
+                "title": "Let It Be Me",
+            },
+            {
+                "id":4,
+                "title":"Smoke Clears",
+            },
+            {
+                "id":5,
+                "title":"Close",
+            },
+            {
+                "id":6,
+                "title":"H.O.L.Y.",
+            },
+            {
+                "id":7,
+                "title":"Heaven",
+            },
+            {
+                "id":8,
+                "title":"In Case You Didnt Know",
+            },
+            {
+                "id":9,
+                "title":"Whiskey and Rain",
+            },
+            {
+                "id":10,
+                "title":"Disco Infero",
+            },
+            {
+                "id":11,
+                "title":"Stayin' Alive",
+            },
+            {
+                "id":12,
+                "title":"Hot Stuff",
+            }
+        ]
+    },
+    {
+        'mId': 2,
+        'songs':[
+            {
+                "id":1,
+                "title":"Chasing Cars",
+            },
+            {
+                "id":2,
+                "title":"Kryptonite",
             },
             {
                 "id": 3,
-                "title": "LLizard",
-                "artist": "Pop Smoke",
-                "album": "Shoot For The Stars Aim For The Moon",
-                "albumArt": "https://media.pitchfork.com/photos/5f02968d8813ffa92664f131/1:1/w_600/Shoot%20for%20the%20Stars%20Aim%20for%20the%20Moon_Pop%20Smoke.jpg",
-                "duration": "3.5",
-                "stream": "https://dataserve.com/linktoacrazysickasssong.mp3"
+                "title": "All I've Got",
             },
             {
                 "id": 4,
-                "title": "Mood Swings",
-                "artist": "Pop Smoke",
-                "album": "Shoot For The Stars Aim For The Moon",
-                "albumArt": "https://media.pitchfork.com/photos/5f02968d8813ffa92664f131/1:1/w_600/Shoot%20for%20the%20Stars%20Aim%20for%20the%20Moon_Pop%20Smoke.jpg",
-                "duration": "3.5",
-                "stream": "https://dataserve.com/linktoacrazysickasssong.mp3"
+                "title": "Seek Jah",
+            },
+            {
+                "id":5,
+                "title":"Smile Jamaica",
+            },
+            {
+                "id":6,
+                "title":"Hello - Lionel Richie",
+            },
+            {
+                "id":7,
+                "title":"Summertime",
+            },
+            {
+                "id":8,
+                "title":"All Of Me",
+            },
+            {
+                "id":9,
+                "title":"Baarishein",
+            },
+            {
+                "id":10,
+                "title":"Changes",
+            },
+            {
+                "id":11,
+                "title":"Can't Help Falling In Love",
+            },
+            {
+                "id":12,
+                "title":"Darlin'",
+            }
+            
+        ]
+    },
+    {
+        'mId':3,
+        'songs':[
+            {
+                "id":1,
+                "title":"Mood Swings",
+            },
+            {
+                "id":2,
+                "title":"Rockabye",
+            },
+            {
+                "id":3,
+                "title":"Order more",
+            },
+            {
+                "id":4,
+                "title":"Rolex",
+            },
+            {
+                "id":5,
+                "title":"Replay",
+            },
+            {
+                "id":6,
+                "title":"Hallowed Be Thy Name",
+            },
+            {
+                "id":7,
+                "title":"CLOSE",
+            },
+            {
+                "id":8,
+                "title":"F.N",
+            },
+            {
+                "id":9,
+                "title":"Vibez",
+            },
+            {
+                "id":10,
+                "title":"High Fashion",
+            },
+            {
+                "id":11,
+                "title":"Lets Get Lost",
+            },
+            {
+                "id":12,
+                "title":"One Way",
+            },
+            {
+                "id":13,
+                "title":"Rockstar",
             }
         ]
     }
